@@ -1,9 +1,10 @@
 
 from pathlib import Path
+import os
 import environ
 env = environ.Env()
 environ.Env.read_env()
-
+PORT = os.getenv('PORT', 8000)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,12 +16,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-
-ALLOWED_HOSTS = ['pet-adopt-4m2v.onrender.com']
+ALLOWED_HOSTS = [
+    'pet-adopt-4m2v.onrender.com',
+    '127.0.0.1',  # Localhost for development
+    'localhost',  # Optional if testing locally
+]
 
 
 # Application definition
