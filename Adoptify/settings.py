@@ -15,15 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = [
-    'pet-adoption-5f8i.onrender.com',
-    '127.0.0.1',  # Localhost for development
-    'localhost',  # Optional if testing locally
-]
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
