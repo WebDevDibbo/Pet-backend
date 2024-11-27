@@ -14,6 +14,8 @@ class AdoptionViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        print('self.req',self.request.user)
+        print('self.reqprofile',self.request.user.profile)
         return Adoption.objects.filter(user=self.request.user.profile)
     
     def list(self, request, *args, **kwargs):
@@ -30,9 +32,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        user_profile = request.user.profile 
-        # print('req',request.user)
-        # print('req-user',request.user.profile)
+        
+        # user_profile = request.user.profile
+        try:
+           user_profile = request.user.profile
+        except UserProfileModel.DoesNotExist:
+           return Response({'error': 'User profile not found'}, status=status.HTTP_404_NOT_FOUND)
 
         pet_id = data.get('pet')
         if not pet_id:
@@ -57,7 +62,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer(data=review_data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=user_profile)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
