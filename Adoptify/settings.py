@@ -19,7 +19,12 @@ DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'pet-adoption-5f8i.onrender.com',
+    '127.0.0.1',  # Localhost for development
+    'localhost',  # Optional if testing locally
+]
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:10827",
